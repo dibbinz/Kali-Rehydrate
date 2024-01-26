@@ -1,5 +1,8 @@
 #!/bin/zsh
 #Hydrate Kali with testing preferences and pentest repos
+#Version 0.1.1 
+#Updated:Loops through git repositories included in a repositories.txt.
+#        Add any github links to the .txt file and just loop through it!
 
 # ----- Set up directories -----
 
@@ -39,32 +42,30 @@ apt-get dist-upgrade -y
 apt autoremove -y
 
 # ----- Clone git repositories -----
-cd /usr/bin/;
-git clone https://github.com/pentestmonkey/windows-privesc-check.git;
-git clone https://github.com/21y4d/nmapAutomator;
-git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git;
-git clone https://github.com/rapid7/ssh-badkeys.git;
-git clone https://github.com/samratashok/nishang.git;
-git clone https://github.com/huntergregal/mimipenguin.git;
-git clone https://github.com/CoreSecurity/impacket.git;
-git clone https://github.com/maurosoria/dirsearch.git --depth 1;
-git clone https://github.com/worawit/MS17-010.git;
-git clone https://github.com/ropnop/kerbrute.git;
-git clone https://github.com/ivan-sincek/php-reverse-shell.git;
-git clone https://github.com/OJ/gobuster.git;
-git clone https://github.com/trustedsec/unicorn;
-git clone https://github.com/EnableSecurity/wafw00f;
-git clone https://github.com/the-useless-one/pywerview;
-git clone https://github.com/NytroRST/NetRipper;
-git clone https://github.com/orlyjamie/mimikittenz;
-git clone https://github.com/danielbohannon/Invoke-Obfuscation;
-git clone https://github.com/hmaverickadams/autoNTDS.git;
-git clone --depth 1 https://github.com/drwetter/testssl.sh.git;
-git clone https://github.com/jtesta/ssh-audit.git;
-git clone https://github.com/dirkjanm/mitm6.git;
-git clone --recursive https://github.com/BC-SECURITY/Empire.git;
-git clone https://github.com/byt3bl33d3r/DeathStar.git;
+repositories_file="repositories.txt"
+total_repositories=$(wc -l < "$repositories_file")
+current_repo_index=1
 
+if [ -f "$repositories_file" ]; then
+    while read -r repo_url args; do
+    
+        repo_name=$(basename "$repo_url" .git)
+        destination="/usr/bin/$repo_name"
+
+        echo "--------------------------------------------------------------------"
+        echo "Processing Git $current_repo_index of $total_repositories: $repo_url"
+        
+        if [ -d "$destination" ]; then
+            echo "$repo_name repository already exists. Skipping..."
+        else
+            git clone "$repo_url" "$destination" $args
+        fi
+
+        ((current_repo_index++))
+    done < "$repositories_file"
+else
+    echo "Error: Repositories file not found."
+fi
 
 # ----- Setup bad characters txt file in /usr/bin/HackRepo ----
 cd /usr/bin/;
@@ -110,14 +111,3 @@ cd /usr/bin/Empire;
 cd /usr/bin/deathstar;
 python3 -m pip install --user pipx;
 pipx install deathstar-empire;
-
-
-
-
-
-
-
-
-
-
-
