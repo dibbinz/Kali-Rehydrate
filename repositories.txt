@@ -1,0 +1,24 @@
+https://github.com/pentestmonkey/windows-privesc-check.git
+https://github.com/21y4d/nmapAutomator
+https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git
+https://github.com/rapid7/ssh-badkeys.git
+https://github.com/samratashok/nishang.git
+https://github.com/huntergregal/mimipenguin.git
+https://github.com/CoreSecurity/impacket.git
+https://github.com/maurosoria/dirsearch.git --depth 1
+https://github.com/worawit/MS17-010.git
+https://github.com/ropnop/kerbrute.git
+https://github.com/ivan-sincek/php-reverse-shell.git
+https://github.com/OJ/gobuster.git
+https://github.com/trustedsec/unicorn
+https://github.com/EnableSecurity/wafw00f
+https://github.com/the-useless-one/pywerview
+https://github.com/NytroRST/NetRipper
+https://github.com/orlyjamie/mimikittenz
+https://github.com/danielbohannon/Invoke-Obfuscation
+https://github.com/hmaverickadams/autoNTDS.git
+https://github.com/drwetter/testssl.sh.git --depth 1
+https://github.com/jtesta/ssh-audit.git
+https://github.com/dirkjanm/mitm6.git
+https://github.com/BC-SECURITY/Empire.git --recursive
+https://github.com/byt3bl33d3r/DeathStar.git
