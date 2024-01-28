@@ -1,9 +1,9 @@
 #!/bin/zsh
 #Hydrate Kali with testing preferences and pentest repos
-#Version 0.1.2
-#Updated:Added a Menu that also includes a Kali Rehydrate Logo in ASCII art. Options to start and stop in menu.
+#Version 0.1.6
+#Updated: Fixed bug where Daemon outdate libraries constantly popped up.
+#         Changed colors in logo and modularized colors
 
-# ----- Kali Rehydrate Menu -----
 # Function to echo text in blue
 blue_echo() {
     echo -e "\033[34m$1\033[0m"
@@ -19,6 +19,28 @@ red_echo() {
     echo -e "\033[31m$1\033[0m"
 }
 
+# Function to echo text in yellow
+yellow_echo() {
+    echo -e "\033[33m$1\033[0m"
+}
+
+# Function to echo text in purple
+purple_echo() {
+    echo -e "\033[35m$1\033[0m"
+}
+
+
+# ------ Root Checker ------
+if [ "$EUID" -ne 0 ]; then
+    red_echo "Error: " 
+    echo "This script must be run as root. Use " 
+    green_echo "sudo ./hydrate-2024.sh"
+    echo "Exiting..."
+    exit 1
+fi
+
+# ----- Kali Rehydrate Menu -----
+version_number="v0.1.6"
 blue_echo "
                                    .^                                
                                    :PB7                               
@@ -49,16 +71,17 @@ blue_echo "
                         JP:                 JP:                J~     
                          ~5J!^.          :75?                  :!     
                            ^!?JJ?7!!!!!?JJ!.                    :     
-                                .:^~~~^:.                       :     
+                                .:^~~~^:.                       :" 
+purple_echo "   
     __ __ ___    __    ____                              
    / //_//   |  / /   /  _/                              
   / ,<  / /| | / /    / /                                
  / /| |/ ___ |/ /____/ /                                 
-/_/ |_/_/ _|_/_____/___/  ______  ____  ___  ____________
+/_/ |_/_/ _|_/_____/___/  \033[32m______  ____  ___  ____________
    / __ \/ ____/ / / /\ \/ / __ \/ __ \/   |/_  __/ ____/
   / /_/ / __/ / /_/ /  \  / / / / /_/ / /| | / / / __/   
  / _, _/ /___/ __  /   / / /_/ / _, _/ ___ |/ / / /___   
-/_/ |_/_____/_/ /_/   /_/_____/_/ |_/_/  |_/_/ /_____/   v0.1.2     
+/_/ |_/_____/_/ /_/   /_/_____/_/ |_/_/  |_/_/ /_____/   \033[93;1m$version_number   
 "
 
 # Display Menu
@@ -75,43 +98,90 @@ case $choice in
     1)
         echo "Starting Kali Rehydrate..."
         # ----- Set up directories -----
-
-        if [[ -d "/usr/bin/pip" ]]
-        then
-            echo "Pip directory already exists! Skipping..."
+        pip_directory="/usr/bin/pip"
+        if [ -d "$pip_directory" ]; then
+            blue_echo "Pip directory already exists! Skipping..."
         else
-        mkdir /usr/bin/pip;
+            mkdir -p "$pip_directory" && green_echo "Pip directory created." || red_echo "Failed to create Pip directory."
         fi
 
-        # ----- Install packages and update/upgrade-----
-        sudo apt-get update && apt-get upgrade -y
-        dpkg --add-architecture i386 && apt update && apt -y install wine32:i386
-        apt-get install python3-pip
-        apt-get install -y docker.io
-        apt-get install docker-compose -y
-        apt-get install python3-impacket -y
-        apt-get install impacket-scripts -y 
-        apt-get install mingw-w64 -y
-        apt-get install pure-ftpd -y
-        apt-get install crackmapexec -y
-        apt-get install rinetd -y
-        apt-get install gcc-9-base libgcc-9-dev libc6-dev -y
-        apt-get install terminator -y
-        apt-get install seclists -y
-        apt-get install steghide -y
-        apt-get install stegcracker -y
-        apt-get install rlwrap -y
-        apt-get install bloodhound neo4j -y
-        apt-get install bloodhound.py -y
-        apt-get install veil -y
-        apt-get install veil-evasion -y
-        apt-get update && apt-get upgrade -y
-        apt-get dist-upgrade -y
+                # ----- Install packages and update/upgrade -----
+        green_echo "Updating package lists..."
+        sudo apt-get update -y -qq
+
+        green_echo "Upgrading installed packages..."
+        sudo apt-get upgrade -y -qq
+
+        green_echo "Configuring architecture for compatibility..."
+        dpkg --add-architecture i386
+        sudo apt update -y -qq
+
+        green_echo "Installing wine32 for 32-bit compatibility..."
+        sudo apt -y install wine32:i386 -y -qq
+
+        green_echo "Installing Python 3 pip..."
+        sudo apt-get install python3-pip -y -qq
+
+        green_echo "Installing Docker and Docker Compose..."
+        sudo apt-get install -y docker.io docker-compose -qq
+
+        green_echo "Installing Impacket..."
+        sudo apt-get install python3-impacket -y -qq
+
+        green_echo "Installing Impacket Scripts..."
+        sudo apt-get install impacket-scripts -y -qq
+
+        green_echo "Installing Mingw-w64..."
+        sudo apt-get install mingw-w64 -y -qq
+
+        green_echo "Installing Pure-FTPd..."
+        sudo apt-get install pure-ftpd -y -qq
+
+        green_echo "Installing CrackMapExec..."
+        sudo apt-get install crackmapexec -y -qq
+
+        green_echo "Installing Rinetd..."
+        sudo apt-get install rinetd -y -qq
+
+        green_echo "Installing GCC-9 base, libgcc-9-dev, libc6-dev..."
+        sudo apt-get install gcc-9-base libgcc-9-dev libc6-dev -y -qq
+
+        green_echo "Installing Terminator..."
+        sudo apt-get install terminator -y -qq
+
+        green_echo "Installing SecLists..."
+        sudo apt-get install seclists -y -qq
+
+        green_echo "Installing Steghide and Stegcracker..."
+        sudo apt-get install steghide -y -qq
+        sudo apt-get install stegcracker -y -qq
+
+        green_echo "Installing rlwrap..."
+        sudo apt-get install rlwrap -y -qq
+
+        green_echo "Installing Bloodhound and Neo4j..."
+        sudo apt-get install bloodhound neo4j -y -qq
+
+        green_echo "Installing Bloodhound.py..."
+        sudo apt-get install bloodhound.py -y -qq
+
+        green_echo "Installing Veil..."
+        sudo apt-get install veil -y -qq
+
+        green_echo "Installing Veil Evasion..."
+        sudo apt-get install veil-evasion -y -qq
+
+        green_echo "Updating package lists..."
+        sudo apt-get update -qq
+
+        green_echo "Performing dist-upgrade..."
+        sudo apt-get dist-upgrade -y -qq
 
         # ----- Tidy up -----
-        apt autoremove -y
+        green_echo "Removing unnecessary packages..."
+        sudo apt autoremove -y -qq
 
-        # ----- Clone git repositories -----
+        # ----- Clone git repositories loop-----
         repositories_file="repositories.txt"
         total_repositories=$(wc -l < "$repositories_file")
         current_repo_index=1
@@ -123,12 +193,13 @@ case $choice in
                 destination="/usr/bin/$repo_name"
 
                 echo "--------------------------------------------------------------------"
-                echo "Processing Git $current_repo_index of $total_repositories: $repo_url"
+                green_echo "Processing Git $current_repo_index of $total_repositories: $repo_url"
                 
                 if [ -d "$destination" ]; then
-                    echo "$repo_name repository already exists. Skipping..."
+                    yellow_echo "$repo_name repository already exists. Skipping..."
                 else
                     git clone "$repo_url" "$destination" $args
+                    blue_echo "$repo_name repository cloned successfully."
                 fi
 
                 ((current_repo_index++))
@@ -181,6 +252,22 @@ case $choice in
         cd /usr/bin/deathstar;
         python3 -m pip install --user pipx;
         pipx install deathstar-empire;
+        
+
+        # ----- Install TeamViewer if not installed -----
+        if ! command -v teamviewer &> /dev/null; then
+            blue_echo "Installing TeamViewer..."
+            wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
+            dpkg -i teamviewer_amd64.deb
+            apt-get install -f -y
+            rm teamviewer_amd64.deb
+        else
+            yellow_echo "TeamViewer is already installed."
+        fi
+
+        # Display completion message
+        green_echo "Kali Rehydration is complete. Kali's thirst has been quenched."
+        green_echo "Launch TeamViewer using the command \"teamviewer\""
         ;;
     2)
         echo "Exiting..."
@@ -191,3 +278,4 @@ case $choice in
         exit 1
         ;;
 esac
+
