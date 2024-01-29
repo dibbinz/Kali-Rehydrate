@@ -1,5 +1,6 @@
 #!/bin/zsh
 #Hydrate Kali with testing preferences and pentest repos
+
 #Version 0.1.6
 #Updated: Fixed bug where Daemon outdate libraries constantly popped up.
 #         Changed colors in logo and modularized colors
@@ -19,6 +20,7 @@ red_echo() {
     echo -e "\033[31m$1\033[0m"
 }
 
+
 # Function to echo text in yellow
 yellow_echo() {
     echo -e "\033[33m$1\033[0m"
@@ -29,18 +31,19 @@ purple_echo() {
     echo -e "\033[35m$1\033[0m"
 }
 
-
 # ------ Root Checker ------
 if [ "$EUID" -ne 0 ]; then
     red_echo "Error: " 
     echo "This script must be run as root. Use " 
-    green_echo "sudo ./hydrate-2024.sh"
+
+    green_echo "sudo ./hydrate-2024.sh"    
     echo "Exiting..."
     exit 1
 fi
 
 # ----- Kali Rehydrate Menu -----
 version_number="v0.1.6"
+
 blue_echo "
                                    .^                                
                                    :PB7                               
@@ -82,6 +85,7 @@ purple_echo "
   / /_/ / __/ / /_/ /  \  / / / / /_/ / /| | / / / __/   
  / _, _/ /___/ __  /   / / /_/ / _, _/ ___ |/ / / /___   
 /_/ |_/_____/_/ /_/   /_/_____/_/ |_/_/  |_/_/ /_____/   \033[93;1m$version_number   
+
 "
 
 # Display Menu
@@ -277,5 +281,7 @@ case $choice in
         echo "Invalid choice. Exiting..."
         exit 1
         ;;
+
 esac
+
 
