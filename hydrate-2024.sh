@@ -3,6 +3,7 @@
 #Version 0.1.3
 #Updated:Added a root checker to insure the user is root
 
+
 # Function to echo text in blue
 blue_echo() {
     echo -e "\033[34m$1\033[0m"
@@ -18,6 +19,7 @@ red_echo() {
     echo -e "\033[31m$1\033[0m"
 }
 
+
 # ------ Root Checker ------
 if [ "$EUID" -ne 0 ]; then
     red_echo "Error: " 
@@ -26,8 +28,8 @@ if [ "$EUID" -ne 0 ]; then
     echo "Exiting..."
     exit 1
 fi
-
 # ----- Kali Rehydrate Menu -----
+
 blue_echo "
                                    .^                                
                                    :PB7                               
@@ -68,6 +70,7 @@ blue_echo "
   / /_/ / __/ / /_/ /  \  / / / / /_/ / /| | / / / __/   
  / _, _/ /___/ __  /   / / /_/ / _, _/ ___ |/ / / /___   
 /_/ |_/_____/_/ /_/   /_/_____/_/ |_/_/  |_/_/ /_____/   v0.1.3    
+
 "
 
 # Display Menu
@@ -199,5 +202,7 @@ case $choice in
         echo "Invalid choice. Exiting..."
         exit 1
         ;;
+
 esac
+
 
