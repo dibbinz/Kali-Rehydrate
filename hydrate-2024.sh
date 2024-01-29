@@ -1,9 +1,9 @@
 #!/bin/zsh
 #Hydrate Kali with testing preferences and pentest repos
-#Version 0.1.2
-#Updated:Added a Menu that also includes a Kali Rehydrate Logo in ASCII art. Options to start and stop in menu.
+#Version 0.1.3
+#Updated:Added a root checker to insure the user is root
 
-# ----- Kali Rehydrate Menu -----
+
 # Function to echo text in blue
 blue_echo() {
     echo -e "\033[34m$1\033[0m"
@@ -18,6 +18,17 @@ green_echo() {
 red_echo() {
     echo -e "\033[31m$1\033[0m"
 }
+
+
+# ------ Root Checker ------
+if [ "$EUID" -ne 0 ]; then
+    red_echo "Error: " 
+    echo "This script must be run as root. Use " 
+    green_echo "\"sudo ./hydrate-2024.sh\""
+    echo "Exiting..."
+    exit 1
+fi
+# ----- Kali Rehydrate Menu -----
 
 blue_echo "
                                    .^                                
@@ -58,7 +69,8 @@ blue_echo "
    / __ \/ ____/ / / /\ \/ / __ \/ __ \/   |/_  __/ ____/
   / /_/ / __/ / /_/ /  \  / / / / /_/ / /| | / / / __/   
  / _, _/ /___/ __  /   / / /_/ / _, _/ ___ |/ / / /___   
-/_/ |_/_____/_/ /_/   /_/_____/_/ |_/_/  |_/_/ /_____/   v0.1.2     
+/_/ |_/_____/_/ /_/   /_/_____/_/ |_/_/  |_/_/ /_____/   v0.1.3    
+
 "
 
 # Display Menu
@@ -190,4 +202,7 @@ case $choice in
         echo "Invalid choice. Exiting..."
         exit 1
         ;;
+
 esac
+
+
