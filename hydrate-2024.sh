@@ -245,6 +245,8 @@ case $choice in
         # ----- install empire -------
         blue_echo "Installing empire..."
         cd /usr/bin/Empire;
+        sudo chown sca:sca -R Empire;
+        cd Empire;
         ./setup/checkout-latest-tag.sh;
         ./setup/install.sh;
 
