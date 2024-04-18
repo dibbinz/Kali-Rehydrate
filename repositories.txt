@@ -1,11 +1,11 @@
 https://github.com/pentestmonkey/windows-privesc-check
-https://github.com/21y4d/nmapAutomator.git
+https://github.com/21y4d/nmapAutomator
 https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite
 https://github.com/rapid7/ssh-badkeys
 https://github.com/samratashok/nishang
 https://github.com/huntergregal/mimipenguin
-https://github.com/CoreSecurity/impacket.git
-https://github.com/maurosoria/dirsearch.git --depth 1
+https://github.com/CoreSecurity/impacket
+https://github.com/maurosoria/dirsearch --depth 1
 https://github.com/worawit/MS17-010
 https://github.com/ropnop/kerbrute
 https://github.com/ivan-sincek/php-reverse-shell
