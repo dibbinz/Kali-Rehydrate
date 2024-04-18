@@ -105,6 +105,10 @@ case $choice in
         blue_echo "Upgrading installed packages..."
         sudo apt-get upgrade -y -qq
 
+        blue_echo "dos2unix install..."
+        sudo apt-get install dos2unix -y -qq
+
+
         blue_echo "Configuring architecture for compatibility..."
         dpkg --add-architecture i386
         sudo apt update -y -qq
@@ -176,6 +180,10 @@ case $choice in
         # ----- Tidy up -----
         blue_echo "Removing unnecessary packages..."
         sudo apt autoremove -y -qq
+
+        # ------ git repositories.txt dos2unix clean-up ------------
+        blue_echo "converting repository file dos2unix..."
+        dos2unix repositories.txt
 
         # ----- Clone git repositories loop-----
         repositories_file="repositories.txt"
