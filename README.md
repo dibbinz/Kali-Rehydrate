@@ -1,18 +1,7 @@
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- # Kali-Rehydrate
+# Kali-Rehydrate
 
 
-                                   .^                                
+                                    .^                                
                                    :PB7                               
                                   :G!.PJ                              
                                  :B!   PY                             
