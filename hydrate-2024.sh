@@ -121,6 +121,9 @@ case $choice in
         blue_echo "Installing  golang-go..."
         sudo apt-get install golang-go -y -qq
 
+        blue_echo "Installing gowitness..."
+        sudo apt-get install gowitness -y -qq
+
         blue_echo "Installing Chromium..."
         sudo apt-get install chromium -y -qq
         
