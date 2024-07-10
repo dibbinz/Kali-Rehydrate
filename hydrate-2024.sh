@@ -236,14 +236,31 @@ case $choice in
         else cp /root/kali-hydration/badchars.txt /usr/bin/badchars.txt
         fi
 
+        # ----- Pip Install Respositories -----
+        blue_echo "Installing pycryptodome & ssh-audit..."
+        
+        pip install pycryptodome;
+        pip3 install ssh-audit;
+        
         # ----- Set executable permissions on git repos -----
         blue_echo "Setting up permissions..."
-        chmod +x /usr/bin/nmapAutomator/nmapAutomator.sh
+        chmod +x /usr/bin/nmapAutomator/nmapAutomator.sh;
+       
+        # ---- windows-privesc-check ----
+        blue_echo "Installing windows-privesc-check..."
 
-        # ----- Pip Install Respositories -----
-        blue_echo "Installing pycryptodome..."
-        pip install pycryptodome;
+        # ---- privilege-escalation-awesome-scripts-suite ---
+        blue_echo "Installing privilege-escalation-awesome-scripts-suite..."
 
+        # ----- ssh-badkeys -----
+        blue_echo "Installing ssh-badkeys..."
+
+        # ---- nishang -----
+        blue_echo "Installing nishang..."
+
+        # ---- mimipenguin -----
+        blue_echo "Installing mimipenguin..."
+        
         # ---- Install Impacket ----
         blue_echo "Installing Impacket..."
         cd /usr/bin/impacket;
@@ -255,6 +272,49 @@ case $choice in
         cd /usr/bin/dirsearcher;
         pip3 install -r requirements.txt;
 
+        # ---- Install MS17-010 ----
+        blue_echo "Installing MS17-010 Repo..."
+
+        # ---- Install Kerbrute ----
+        blue_echo "Installing Kerbrute..."
+
+        # ---- Install php-reverse-shell ---- 
+        blue_echo "Installing php-reverse-shell..."
+
+        # ---- Install Gobuster ----
+        blue_echo "Installing Gobuster..."
+
+        # ---- Install Trustedsec-Unicorn ----
+        blue_echo "Installing Trustedsec-Unicorn..."
+
+        # Install wafw00f ----
+        blue_echo "Installing wafw00f..."
+        cd /usr/bin/wafw00f;
+        python setup.py install;
+
+        # ---- install pywerview ----
+        blue_echo "Installing pywerview..."
+        cd /usr/bin/pywerview;
+        python setup.py install;
+
+        # ---- Install NetRipper ---- 
+        blue_echo "Installing NetRipper..."
+
+        # ---- Install mimikittenz ----
+        blue_echo "Installing mimikittenz..."
+
+        # ---- Install Invoke-Obfuscation ---
+        blue_echo "Invoke-Obfuscation..."
+
+        # ---- Install autoNTDS ---
+        blue_echo "Installing autoNTDS..."
+
+        # ---- Install testssl.sh ----
+        blue_echo "Installing testssl.sh..."
+
+        # ---- Install ssh-audit ----
+        blue_echo "Installing ssh-audit..."
+        
         # ---- Enable Docker ----
         blue_echo "Enableing Docker"
         systemctl enable docker --now;
