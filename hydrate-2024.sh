@@ -108,7 +108,6 @@ case $choice in
         blue_echo "dos2unix install..."
         sudo apt-get install dos2unix -y -qq
 
-
         blue_echo "Configuring architecture for compatibility..."
         dpkg --add-architecture i386
         sudo apt update -y -qq
@@ -119,8 +118,20 @@ case $choice in
         blue_echo "Installing Python 3 pip..."
         sudo apt-get install python3-pip -y -qq
 
+        blue_echo "Installing  golang-go..."
+        sudo apt-get install golang-go -y -qq
+
+        blue_echo "Installing Chromium..."
+        sudo apt-get install chromium -y -qq
+        
         blue_echo "Installing Docker and Docker Compose..."
         sudo apt-get install  docker.io docker-compose -y -qq
+        
+        blue_echo "Installing hostapd-wpe..."
+        sudo apt-get install hostapd-wpe -y -qq
+
+        blue_echo "Installing aircrack-suite..."
+        sudo apt-get install aircrack-ng -y -qq
 
         blue_echo "Installing Impacket..."
         sudo apt-get install python3-impacket -y -qq
