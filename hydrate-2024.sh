@@ -40,7 +40,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # ----- Kali Rehydrate Menu -----
-version_number="v0.1.7"
+version_number="v0.1.8"
 blue_echo "
                                    .^                                
                                    :PB7                               
@@ -208,7 +208,7 @@ case $choice in
             while read -r repo_url args; do
             
                 repo_name=$(basename "$repo_url" .git)
-                destination="/usr/bin/$repo_name"
+                destination="/bin/$repo_name"
 
                 echo "--------------------------------------------------------------------"
                 blue_echo "Processing Git $current_repo_index of $total_repositories: $repo_url"
@@ -229,11 +229,11 @@ case $choice in
 
         # ----- Setup bad characters txt file in /usr/bin/HackRepo ----
         blue_echo "Setting up Bad Characters File..."
-        cd /usr/bin/;
-        if [[ -f "/usr/bin/badchars.txt" ]]
+        cd /bin;
+        if [[ -f "/bin/badchars.txt" ]]
         then
             yellow_echo "badchars.txt already exists. Skipping..."
-        else cp /root/kali-hydration/badchars.txt /usr/bin/badchars.txt
+        else cp /usr/bin/Kali-Rehydrate/badchars.txt /bin/badchars.txt
         fi
 
         # ----- Pip Install Respositories -----
@@ -244,7 +244,7 @@ case $choice in
         
         # ----- Set executable permissions on git repos -----
         blue_echo "Setting up permissions..."
-        chmod +x /usr/bin/nmapAutomator/nmapAutomator.sh;
+        chmod +x /bin/nmapAutomator/nmapAutomator.sh;
        
         # ---- windows-privesc-check ----
         blue_echo "Installing windows-privesc-check..."
@@ -263,13 +263,13 @@ case $choice in
         
         # ---- Install Impacket ----
         blue_echo "Installing Impacket..."
-        cd /usr/bin/impacket;
+        cd /bin/impacket;
         pip3 install .;
         python3 setup.py install;
 
         # ---- Install Dirsearch Requirements ----
         blue_echo "Installing Dirsearch..."
-        cd /usr/bin/dirsearcher;
+        cd /bin/dirsearcher;
         pip3 install -r requirements.txt;
 
         # ---- Install MS17-010 ----
@@ -289,12 +289,12 @@ case $choice in
 
         # Install wafw00f ----
         blue_echo "Installing wafw00f..."
-        cd /usr/bin/wafw00f;
+        cd /bin/wafw00f;
         python setup.py install;
 
         # ---- install pywerview ----
         blue_echo "Installing pywerview..."
-        cd /usr/bin/pywerview;
+        cd /bin/pywerview;
         python setup.py install;
 
         # ---- Install NetRipper ---- 
@@ -321,20 +321,20 @@ case $choice in
 
         # ---- install mitm6 ----
         blue_echo "Installing mitm6..."
-        cd /usr/bin/mitm6;
+        cd /bin/mitm6;
         pip3 install -r requirements.txt; 
 
         # ----- install empire -------
         blue_echo "Installing empire..."
-        cd /usr/bin/Empire;
-        sudo chown sca:sca -R Empire;
+        cd /bin/Empire;
+        sudo chown kali:kali -R Empire;
         cd Empire;
         ./setup/checkout-latest-tag.sh;
         ./setup/install.sh;
 
         # ------- install Deathstar ---------
         blue_echo "Installing Deathstar..."
-        cd /usr/bin/deathstar;
+        cd /bin/deathstar;
         python3 -m pip install --user pipx;
         pipx install deathstar-empire;
 
