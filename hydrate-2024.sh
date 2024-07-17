@@ -338,6 +338,9 @@ case $choice in
         python3 -m pip install --user pipx;
         pipx install deathstar-empire;
 
+        # ----- airgeddon install ---- 
+        blue_echo "Installing airgeddon..."
+
         # ----- Install TeamViewer if not installed -----
         if ! command -v teamviewer &> /dev/null; then
             blue_echo "Installing TeamViewer..."
