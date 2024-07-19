@@ -343,11 +343,10 @@ case $choice in
 
         # ----- install nessus ------
         blue_echo "Installing Tenable Nessus..."
-        cd /opt/ &&
-        curl --request GET
-        --url 'https://www.tenable.com/downloads/api/v2/pages/nessus/files/Nessus-10.7.4-ubuntu1404_amd64.deb'
+        cd /opt/ 
+        curl --request GET --url 'https://www.tenable.com/downloads/api/v2/pages/nessus/files/Nessus-10.7.4-ubuntu1404_amd64.deb'
         --output 'Nessus-10.7.4-ubuntu1404_amd64.deb'
-        && dpkg -i Nessus-10.7.4-ubuntu1404_amd64.deb
+        dpkg -i Nessus-10.7.4-ubuntu1404_amd64.deb
       
         # ----- Install TeamViewer if not installed -----
         if ! command -v teamviewer &> /dev/null; then
