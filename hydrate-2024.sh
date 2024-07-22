@@ -185,6 +185,9 @@ case $choice in
         blue_echo "Installing Shellter..."
         sudo apt-get install shellter -y -qq
 
+        blue_echo "Installing Airgeddon..."
+        sudo apt-get install airgeddon -y -qq
+
         blue_echo "Updating package lists..."
         sudo apt-get update -qq
 
@@ -337,9 +340,6 @@ case $choice in
         cd /bin/deathstar;
         python3 -m pip install --user pipx;
         pipx install deathstar-empire;
-
-        # ----- Install Airgeddon ---- 
-        blue_echo "Installing airgeddon..."
 
         # ----- install nessus ------
         blue_echo "Installing Tenable Nessus..."
