@@ -207,6 +207,7 @@ case $choice in
 
         blue_echo "Installing XRDP..."
         sudo apt-get install xrdp -y -qq"
+        sudo systemctl enable xrdp
 
         blue_echo "Installing Bloodhound-ce..."
         cd /opt/;
