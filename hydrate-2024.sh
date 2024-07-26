@@ -205,6 +205,9 @@ case $choice in
         blue_echo "Installing Airgeddon..."
         sudo apt-get install airgeddon -y -qq
 
+        blue_echo "Installing XRDP..."
+        sudo apt-get install XRDP -y -qq"
+
         blue_echo "Installing Bloodhound-ce..."
         cd /opt/;
         sudo mkdir bloodhound-ce;
