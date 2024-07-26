@@ -206,7 +206,7 @@ case $choice in
         sudo apt-get install airgeddon -y -qq
 
         blue_echo "Installing XRDP..."
-        sudo apt-get install XRDP -y -qq"
+        sudo apt-get install xrdp -y -qq"
 
         blue_echo "Installing Bloodhound-ce..."
         cd /opt/;
