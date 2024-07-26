@@ -384,7 +384,7 @@ case $choice in
         pip3 install -r requirements.txt;
         pipx install deathstar-empire;
 
-        # ----- install TailScail ------- 
+        # ----- install TailScale ------- 
         blue_echo "Installing TailScale..."
         curl -fsSl https://tailscale.com/install.sh | sh;
         sudo apt-get update && dpkg --configure -a; 
