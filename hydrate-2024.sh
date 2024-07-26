@@ -1,8 +1,7 @@
 #!/bin/zsh
 #Hydrate Kali with testing preferences and pentest repos
-#Version 0.1.7
-#Updated: Implemented installation of shellter. Removed unneeded pip installs.
-#         Minor user interaction additions
+#Version 0.1.9
+#Updated: 
 
 # Function to echo text in blue
 blue_echo() {
@@ -99,14 +98,26 @@ case $choice in
         blue_echo "Starting \033[35mKali \033[32mRehydrate..."
 
         # ----- Install packages and update/upgrade -----
+        blue_echo "Installing gpg..."
+        sudo apt-get install gpg
+
         blue_echo "Updating package lists..."
         sudo apt-get update -y -qq
 
         blue_echo "Upgrading installed packages..."
         sudo apt-get upgrade -y -qq
 
+        blue_echo "Installing Python3.11-venv..."
+        sudo apt install python3.11-venv
+
         blue_echo "dos2unix install..."
         sudo apt-get install dos2unix -y -qq
+
+        blue_echo "Installing build essentials..."
+        sudo apt install build-essential -y -qq
+
+        blue_echo "Installing libkrb5-dev..."
+        apt-get install libkrb5-dev -y -qq
 
         blue_echo "Configuring architecture for compatibility..."
         dpkg --add-architecture i386
@@ -118,17 +129,29 @@ case $choice in
         blue_echo "Installing Python 3 pip..."
         sudo apt-get install python3-pip -y -qq
 
+        blue_echo "Installing pipx..."
+        sudo apt-get install pipx -y -qq
+
         blue_echo "Installing  golang-go..."
         sudo apt-get install golang-go -y -qq
-
-        blue_echo "Installing gowitness..."
-        sudo apt-get install gowitness -y -qq
 
         blue_echo "Installing Chromium..."
         sudo apt-get install chromium -y -qq
         
         blue_echo "Installing Docker and Docker Compose..."
-        sudo apt-get install  docker.io docker-compose -y -qq
+        sudo apt update
+        sudo apt install -y docker.io
+        sudo systemctl enable docker --now
+        sudo usermod -aG docker $USER
+        echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian bookworm stable" | \
+        sudo tee /etc/apt/sources.list.d/docker.list 
+        curl -fsSL https://download.docker.com/linux/debian/gpg |
+        sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+        sudo apt update
+        sudo apt install -y docker-ce docker-ce-cli containerd.io
+
+        blue_echo "Installing gcc..."
+        sudo apt-get install gcc -y -qq
         
         blue_echo "Installing hostapd-wpe..."
         sudo apt-get install hostapd-wpe -y -qq
@@ -170,12 +193,6 @@ case $choice in
         blue_echo "Installing rlwrap..."
         sudo apt-get install rlwrap -y -qq
 
-        blue_echo "Installing Bloodhound and Neo4j..."
-        sudo apt-get install bloodhound neo4j -y -qq
-
-        blue_echo "Installing Bloodhound.py..."
-        sudo apt-get install bloodhound.py -y -qq
-
         blue_echo "Installing Veil..."
         sudo apt-get install veil -y -qq
 
@@ -187,6 +204,12 @@ case $choice in
 
         blue_echo "Installing Airgeddon..."
         sudo apt-get install airgeddon -y -qq
+
+        blue_echo "Installing Bloodhound-ce..."
+        cd /opt/;
+        sudo mkdir bloodhound-ce;
+        cd /opt/bloodhound-ce;
+        sudo curl -L bloodhound-ce/ghst.ly/getbhce >> docker-compose.yml;
 
         blue_echo "Updating package lists..."
         sudo apt-get update -qq
@@ -200,10 +223,12 @@ case $choice in
 
         # ------ git repositories.txt dos2unix clean-up ------------
         blue_echo "converting repository file dos2unix..."
-        dos2unix repositories.txt
+        cd /opt/Kali-Rehydrate/
+        dos2unix /opt/Kali-Rehydrate/repositories.txt
+        
 
         # ----- Clone git repositories loop-----
-        repositories_file="repositories.txt"
+        repositories_file="/opt/Kali-Rehydrate/repositories.txt"
         total_repositories=$(wc -l < "$repositories_file")
         current_repo_index=1
 
@@ -211,7 +236,7 @@ case $choice in
             while read -r repo_url args; do
             
                 repo_name=$(basename "$repo_url" .git)
-                destination="/bin/$repo_name"
+                destination="/opt/$repo_name"
 
                 echo "--------------------------------------------------------------------"
                 blue_echo "Processing Git $current_repo_index of $total_repositories: $repo_url"
@@ -230,25 +255,38 @@ case $choice in
             echo "Error: Repositories file not found."
         fi
 
-        # ----- Setup bad characters txt file in /usr/bin/HackRepo ----
+        # ----- Setup bad characters txt file in /usr/opt/HackRepo ----
         blue_echo "Setting up Bad Characters File..."
-        cd /bin;
-        if [[ -f "/bin/badchars.txt" ]]
+        cd /opt/;
+        if [[ -f "/opt/Kali-Rehydrate/badchars.txt" ]]
         then
             yellow_echo "badchars.txt already exists. Skipping..."
-        else cp /usr/bin/Kali-Rehydrate/badchars.txt /bin/badchars.txt
+        else cp /usr/bin/badchars.txt /opt/Kali-Rehydrate/badchars.txt
         fi
 
+        # ---- misc installs ------ 
+        blue_echo "Installing gowitness..."
+        blue_echo "This will be globally available..."
+        sudo go install github.com/sensepost/gowitness@latest
+
         # ----- Pip Install Respositories -----
-        blue_echo "Installing pycryptodome & ssh-audit..."
-        
+        blue_echo "Pip installing pycryptodome/cython/ssh-audit..."
         pip install pycryptodome;
         pip3 install ssh-audit;
+        pip3 install cython;
         
         # ----- Set executable permissions on git repos -----
         blue_echo "Setting up permissions..."
-        chmod +x /bin/nmapAutomator/nmapAutomator.sh;
+        chmod +x /opt/nmapAutomator/nmapAutomator.sh;
        
+       # ----- Install BloodHound.py -----
+       blue_echo "Installing BloodHound.py..."
+       blue_echo "This is the only ingestor as of now that is compatible with bloodhound-ce..."
+       cd /opt/;
+       sudo git clone https://github.com/dirkjanm/BloodHound.py.git
+       cd /opt/BloodHound.py/;
+       pip3 install .
+
         # ---- windows-privesc-check ----
         blue_echo "Installing windows-privesc-check..."
 
@@ -266,13 +304,14 @@ case $choice in
         
         # ---- Install Impacket ----
         blue_echo "Installing Impacket..."
-        cd /bin/impacket;
-        pip3 install .;
-        python3 setup.py install;
+        cd /opt/impacket;
+        pip3 install -r requirements.txt;
+        python3 -m pipx install impacket;
+        pipx ensurepath;
 
         # ---- Install Dirsearch Requirements ----
         blue_echo "Installing Dirsearch..."
-        cd /bin/dirsearcher;
+        cd /opt/dirsearch;
         pip3 install -r requirements.txt;
 
         # ---- Install MS17-010 ----
@@ -292,13 +331,16 @@ case $choice in
 
         # Install wafw00f ----
         blue_echo "Installing wafw00f..."
-        cd /bin/wafw00f;
-        python setup.py install;
+        cd /opt/wafw00f;
+        pipx install git+https://github.com/EnableSecurity/wafw00f.git;
 
         # ---- install pywerview ----
         blue_echo "Installing pywerview..."
-        cd /bin/pywerview;
-        python setup.py install;
+        cd /opt/pywerview;
+        pip3 install -r requirements.txt;
+        python3 -m venv venv;
+        source ./venv/bin/activate;
+        pip3 install -r requirements.txt;
 
         # ---- Install NetRipper ---- 
         blue_echo "Installing NetRipper..."
@@ -317,29 +359,33 @@ case $choice in
 
         # ---- Install ssh-audit ----
         blue_echo "Installing ssh-audit..."
-        
-        # ---- Enable Docker ----
-        blue_echo "Enableing Docker"
-        systemctl enable docker --now;
 
         # ---- install mitm6 ----
         blue_echo "Installing mitm6..."
-        cd /bin/mitm6;
+        cd /opt/mitm6;
         pip3 install -r requirements.txt; 
 
         # ----- install empire -------
         blue_echo "Installing empire..."
-        cd /bin/Empire;
-        sudo chown kali:kali -R Empire;
-        cd Empire;
-        ./setup/checkout-latest-tag.sh;
-        ./setup/install.sh;
+        sudo chown kali:kali -R /opt/Empire;
+        cd /opt/Empire/setup;
+        sudo bash ./checkout-latest-tag.sh;
+        cd ..
+        sudo bash ./ps-empire install -y;
 
         # ------- install Deathstar ---------
         blue_echo "Installing Deathstar..."
-        cd /bin/deathstar;
-        python3 -m pip install --user pipx;
+        cd /opt/DeathStar;
+        pip3 install -r requirements.txt;
         pipx install deathstar-empire;
+
+        # ----- install TailScail ------- 
+        blue_echo "Installing TailScale..."
+        curl -fsSl https://tailscale.com/install.sh | sh;
+        sudo apt-get update && dpkg --configure -a; 
+        sudo tailscale up
+        sudo systemctl enable --now tailscaled
+        sudo systemctl start tailscaled
 
         # ----- install nessus ------
         blue_echo "Installing Tenable Nessus..."
@@ -363,7 +409,6 @@ case $choice in
 
         # Display completion message
         green_echo "\033[35mKali \033[32mRehydration is complete. Kali's thirst has been quenched."
-        green_echo "Launch TeamViewer using the command \"teamviewer\""
         ;;
     2)
         echo "Exiting..."
