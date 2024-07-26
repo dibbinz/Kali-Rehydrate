@@ -388,7 +388,7 @@ case $choice in
         blue_echo "Installing TailScale..."
         curl -fsSl https://tailscale.com/install.sh | sh;
         sudo apt-get update && dpkg --configure -a; 
-        sudo tailscale up
+        sudo tailscale up --ssh
         sudo systemctl enable --now tailscaled
         sudo systemctl start tailscaled
 
