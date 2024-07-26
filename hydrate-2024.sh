@@ -400,6 +400,8 @@ case $choice in
         --output 'Nessus-10.7.5-ubuntu1604_amd64.deb'
         dpkg -i Nessus-10.7.5-ubuntu1604_amd64.deb
         rm Nessus-10.7.5-ubuntu1604_amd64.deb
+        sudo systemctl enable nessusd
+        sudo systemctl start nessusd
       
         # ----- Install TeamViewer if not installed -----
         if ! command -v teamviewer &> /dev/null; then
