@@ -46,5 +46,4 @@ This script will pull in a number of repos that are useful when we pentest, as w
 
 This is an on-going build, Feel free to use this as a base and tweak it to your own prefrences/liking.
 
-This requires Kali Linux 2022.3
-
+This requires Kali Linux 2024.2 minimum
