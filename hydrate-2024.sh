@@ -214,7 +214,7 @@ case $choice in
         cd /opt/;
         sudo mkdir bloodhound-ce;
         cd /opt/bloodhound-ce;
-        sudo curl -L bloodhound-ce/ghst.ly/getbhce >> docker-compose.yml;
+        curl -L https://ghst.ly/getbhce | docker compose -f - up;
 
         blue_echo "Updating package lists..."
         sudo apt-get update -qq
