@@ -206,7 +206,7 @@ case $choice in
         sudo apt-get install airgeddon -y -qq
 
         blue_echo "Installing XRDP..."
-        sudo apt-get install xrdp -y -qq"
+        sudo apt-get install xrdp -y -qq
         sudo systemctl enable xrdp
         sudo systemctl start xrdp
 
