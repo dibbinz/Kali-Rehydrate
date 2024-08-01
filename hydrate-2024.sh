@@ -415,7 +415,7 @@ case $choice in
         fi
 
         # Display completion message
-        green_echo "\033[35mKali \033[32mRehydration is complete. Kalis thirst has been quenched."
+        green_echo "\033[35mKali \033[32mRehydration is complete. Kali's thirst has been quenched."
         ;;
     2)
         echo "Exiting..."
