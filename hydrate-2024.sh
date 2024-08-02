@@ -307,6 +307,11 @@ case $choice in
 
         # ---- mimipenguin -----
         blue_echo "Installing mimipenguin..."
+
+        #  ---- netexec -----
+        blue_echo "Installing netexec..."
+        pipx install git+https://github.com/Pennyw0rth/NetExec;
+        pipx ensurepath;
         
         # ---- Install Impacket ----
         blue_echo "Installing Impacket..."
