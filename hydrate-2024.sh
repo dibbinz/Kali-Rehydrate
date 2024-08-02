@@ -28,7 +28,6 @@ purple_echo() {
     echo -e "\033[35m$1\033[0m"
 }
 
-
 # ------ Root Checker ------
 if [ "$EUID" -ne 0 ]; then
     red_echo "Error: " 
@@ -216,7 +215,6 @@ case $choice in
         cd /opt/bloodhound-ce;
         curl -L https://ghst.ly/getbhce >> docker-compose.yml;
         
-
         blue_echo "Updating package lists..."
         sudo apt-get update -qq
 
