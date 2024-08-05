@@ -212,6 +212,7 @@ case $choice in
         blue_echo "Installing and starting SSH..."
         apt-get install ssh openssh-server..."
         sudo systemctl enable ssh
+        sudo systemctl start ssh
         
         blue_echo "Installing npm..."
         sudo apt-get install npm -y -qq
