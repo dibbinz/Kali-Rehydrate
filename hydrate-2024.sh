@@ -209,6 +209,13 @@ case $choice in
         sudo systemctl enable xrdp
         sudo systemctl start xrdp
 
+        blue_echo "Installing and starting SSH..."
+        apt-get install ssh openssh-server..."
+        sudo systemctl enable ssh
+        
+        blue_echo "Installing npm..."
+        sudo apt-get install npm -y -qq
+        
         blue_echo "Installing Bloodhound-ce..."
         cd /opt/;
         sudo mkdir bloodhound-ce;
