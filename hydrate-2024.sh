@@ -210,7 +210,7 @@ case $choice in
         sudo systemctl start xrdp
 
         blue_echo "Installing and starting SSH..."
-        apt-get install ssh openssh-server..."
+        sudo apt-get install ssh openssh-server..."
         sudo systemctl enable ssh
         sudo systemctl start ssh
         
@@ -283,7 +283,7 @@ case $choice in
 
         # ----- Pip Install Respositories -----
         blue_echo "Pip installing pycryptodome/cython/ssh-audit..."
-        pip install pycryptodome;
+        pip3 install pycryptodome;
         pip3 install ssh-audit;
         pip3 install cython;
         
