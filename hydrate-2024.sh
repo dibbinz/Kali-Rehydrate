@@ -210,7 +210,7 @@ case $choice in
         sudo systemctl start xrdp
 
         blue_echo "Installing and starting SSH..."
-        sudo apt-get install ssh openssh-server..."
+        sudo apt-get install ssh openssh-server
         sudo systemctl enable ssh
         sudo systemctl start ssh
         
