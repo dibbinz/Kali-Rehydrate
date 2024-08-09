@@ -213,6 +213,10 @@ case $choice in
         sudo apt-get install ssh openssh-server -y -qq
         sudo systemctl enable ssh
         sudo systemctl start ssh
+
+        #  ---- leafpad -----
+        blue_echo "Installing leafpad..."
+        sudo apt-get install leafpad 
         
         blue_echo "Installing npm..."
         sudo apt-get install npm -y -qq
@@ -238,7 +242,6 @@ case $choice in
         cd /opt/Kali-Rehydrate/
         dos2unix /opt/Kali-Rehydrate/repositories.txt
         
-
         # ----- Clone git repositories loop-----
         repositories_file="/opt/Kali-Rehydrate/repositories.txt"
         total_repositories=$(wc -l < "$repositories_file")
@@ -318,6 +321,10 @@ case $choice in
         blue_echo "Installing netexec..."
         pipx install git+https://github.com/Pennyw0rth/NetExec;
         pipx ensurepath;
+
+        #  ---- poetry -----
+        blue_echo "Installing poetry..."
+        pipx install poetry
         
         # ---- Install Impacket ----
         blue_echo "Installing Impacket..."
@@ -385,10 +392,12 @@ case $choice in
         # ----- install empire -------
         blue_echo "Installing empire..."
         sudo chown kali:kali -R /opt/Empire;
+        # ----Switching to sca user to install empire because empire cannot install or run as root. Enter Password For user sca which is just kali if it asks ----
+        su sca
         cd /opt/Empire/setup;
-        sudo bash ./checkout-latest-tag.sh;
+        bash ./checkout-latest-tag.sh;
         cd ..
-        sudo bash ./ps-empire install -y;
+        bash ./ps-empire install -y;
 
         # ------- install Deathstar ---------
         blue_echo "Installing Deathstar..."
