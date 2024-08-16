@@ -417,10 +417,10 @@ case $choice in
         blue_echo "Installing Tenable Nessus..."
         cd /opt/ 
         curl --request GET \
-        --url 'https://www.tenable.com/downloads/api/v2/pages/nessus/files/Nessus-10.8.1-ubuntu1604_amd64.deb' \
-        --output 'Nessus-10.8.1-ubuntu1604_amd64.deb'
-        dpkg -i Nessus-10.8.1-ubuntu1604_amd64.deb
-        rm Nessus-10.8.1-ubuntu1604_amd64.deb
+        --url 'https://www.tenable.com/downloads/api/v2/pages/nessus/files/Nessus-10.8.2-ubuntu1604_amd64.deb' \
+        --output 'Nessus-10.8.2-ubuntu1604_amd64.deb'
+        dpkg -i Nessus-10.8.2-ubuntu1604_amd64.deb
+        rm Nessus-10.8.2-ubuntu1604_amd64.deb
         sudo systemctl enable nessusd
         sudo systemctl start nessusd
       
