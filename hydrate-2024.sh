@@ -151,8 +151,12 @@ case $choice in
 
         blue_echo "Installing gcc..."
         sudo apt-get install gcc -y -qq
+
+        blue_echo "Installing jq..."
+        sudo apt-get install jq -y -qq
         
-        blue_echo "Installing hostapd-wpe..."
+        blue_echo "Installing hos
+        tapd-wpe..."
         sudo apt-get install hostapd-wpe -y -qq
 
         blue_echo "Installing aircrack-suite..."
@@ -213,6 +217,9 @@ case $choice in
         sudo apt-get install ssh openssh-server -y -qq
         sudo systemctl enable ssh
         sudo systemctl start ssh
+
+        blue_echo "Installing misc PIP3 tools..."
+        pip3 install pandas openpyxl requests beautifulsoup4 stem tor shell-gpt xlsxwriter lolcat 
 
         #  ---- leafpad -----
         blue_echo "Installing leafpad..."
