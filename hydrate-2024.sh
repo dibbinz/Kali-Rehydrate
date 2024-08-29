@@ -155,8 +155,7 @@ case $choice in
         blue_echo "Installing jq..."
         sudo apt-get install jq -y -qq
         
-        blue_echo "Installing hos
-        tapd-wpe..."
+        blue_echo "Installing hostapd-wpe..."
         sudo apt-get install hostapd-wpe -y -qq
 
         blue_echo "Installing aircrack-suite..."
