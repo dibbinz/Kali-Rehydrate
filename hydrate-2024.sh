@@ -132,7 +132,7 @@ case $choice in
         sudo apt-get install pipx -y -qq
 
         blue_echo "Installing DonPAPI..."
-        pipx install git+https://github.com/login-securite/DonPAPI.git
+        sudo pipx install git+https://github.com/login-securite/DonPAPI.git
 
         blue_echo "Installing  golang-go..."
         sudo apt-get install golang-go -y -qq
