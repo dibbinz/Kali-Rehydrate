@@ -115,6 +115,9 @@ case $choice in
         blue_echo "Installing build essentials..."
         sudo apt install build-essential -y -qq
 
+        blue_echo "Installing open-iscsi..."
+        sudo apt-get install open-iscsi -y -qq
+
         blue_echo "Installing libkrb5-dev..."
         apt-get install libkrb5-dev -y -qq
 
