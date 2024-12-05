@@ -224,7 +224,7 @@ case $choice in
         sudo systemctl start ssh
 
         blue_echo "Installing misc PIP3 tools..."
-        pip3 install pandas openpyxl requests beautifulsoup4 stem tor shell-gpt xlsxwriter lolcat 
+        pip3 install pandas openpyxl requests beautifulsoup4 stem tor shell-gpt xlsxwriter lolcat --break-system-packages
 
         #  ---- leafpad -----
         blue_echo "Installing leafpad..."
@@ -298,9 +298,9 @@ case $choice in
 
         # ----- Pip Install Respositories -----
         blue_echo "Pip installing pycryptodome/cython/ssh-audit..."
-        pip3 install pycryptodome;
-        pip3 install ssh-audit;
-        pip3 install cython;
+        pip3 install pycryptodome --break-system-packages;
+        pip3 install ssh-audit --break-system-packages;
+        pip3 install cython --break-system-packages;
         
         # ----- Set executable permissions on git repos -----
         blue_echo "Setting up permissions..."
@@ -341,14 +341,14 @@ case $choice in
         # ---- Install Impacket ----
         blue_echo "Installing Impacket..."
         cd /opt/impacket;
-        pip3 install -r requirements.txt;
+        pip3 install -r requirements.txt --break-system-packages;
         python3 -m pipx install impacket;
         pipx ensurepath;
 
         # ---- Install Dirsearch Requirements ----
         blue_echo "Installing Dirsearch..."
         cd /opt/dirsearch;
-        pip3 install -r requirements.txt;
+        pip3 install -r requirements.txt --break-system-packages;
 
         # ---- Install MS17-010 ----
         blue_echo "Installing MS17-010 Repo..."
@@ -373,10 +373,10 @@ case $choice in
         # ---- install pywerview ----
         blue_echo "Installing pywerview..."
         cd /opt/pywerview;
-        pip3 install -r requirements.txt;
+        pip3 install -r requirements.txt --break-system-packages;
         python3 -m venv venv;
         source ./venv/bin/activate;
-        pip3 install -r requirements.txt;
+        pip3 install -r requirements.txt --break-system-packages;
 
         # ---- Install NetRipper ---- 
         blue_echo "Installing NetRipper..."
@@ -399,7 +399,7 @@ case $choice in
         # ---- install mitm6 ----
         blue_echo "Installing mitm6..."
         cd /opt/mitm6;
-        pip3 install -r requirements.txt; 
+        pip3 install -r requirements.txt --break-system-packages; 
 
         # ----- install empire -------
         blue_echo "Installing empire..."
@@ -414,7 +414,7 @@ case $choice in
         # ------- install Deathstar ---------
         blue_echo "Installing Deathstar..."
         cd /opt/DeathStar;
-        pip3 install -r requirements.txt;
+        pip3 install -r requirements.txt --break-system-packages;
         pipx install deathstar-empire;
 
         # ----- install TailScale ------- 
