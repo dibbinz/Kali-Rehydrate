@@ -232,6 +232,9 @@ case $choice in
         
         blue_echo "Installing npm..."
         sudo apt-get install npm -y -qq
+
+        blue_echo "Installing AD-miner..."
+        pipx install 'git+https://github.com/Mazars-Tech/AD_Miner.git'
         
         blue_echo "Installing Bloodhound-ce..."
         cd /opt/;
