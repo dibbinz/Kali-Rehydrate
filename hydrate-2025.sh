@@ -420,10 +420,17 @@ case $choice in
         pip3 install -r requirements.txt --break-system-packages;
         pipx install deathstar-empire;
 
-        # ----- install TailScale ------- 
+        #---------------- install tailscale -----------------
+        blue_echo "Uninstalling TailScale..."
+        sudo tailscale down
+        sudo apt-get remove --purge -y tailscale
+        sudo apt-get autoremove -y
+
         blue_echo "Installing TailScale..."
-        curl -fsSl https://tailscale.com/install.sh | sh;
-        sudo apt-get update && dpkg --configure -a; 
+        curl -fsSL https://tailscale.com/install.sh | sh;
+        sudo apt-get update && sudo dpkg --configure -a;
+
+        blue_echo "Configuring and Starting TailScale..."
         sudo tailscale up --ssh
         sudo systemctl enable --now tailscaled
         sudo systemctl start tailscaled
