@@ -1,6 +1,6 @@
 #!/bin/zsh
 #Hydrate Kali with testing preferences and pentest repos
-#Version 0.1.9
+#Version 0.2.0
 #Updated: 
 
 # Function to echo text in blue
@@ -32,13 +32,13 @@ purple_echo() {
 if [ "$EUID" -ne 0 ]; then
     red_echo "Error: " 
     echo "This script must be run as root. Use " 
-    green_echo "sudo ./hydrate-2024.sh"
+    green_echo "sudo ./hydrate-2025.sh"
     echo "Exiting..."
     exit 1
 fi
 
 # ----- Kali Rehydrate Menu -----
-version_number="v0.1.9"
+version_number="v0.2.0"
 blue_echo "
                                    .^                                
                                    :PB7                               
