@@ -226,6 +226,9 @@ case $choice in
         blue_echo "Installing misc PIP3 tools..."
         pip3 install pandas openpyxl requests beautifulsoup4 stem tor shell-gpt xlsxwriter lolcat --break-system-packages
 
+        blue_echo "Installing misc requirements..."
+        sudo apt install jq scrot terminator wine wine32:i386 vmfs-tools kpartx libnss3-tools xclip
+
         #  ---- leafpad -----
         blue_echo "Installing leafpad..."
         sudo apt-get install leafpad 
