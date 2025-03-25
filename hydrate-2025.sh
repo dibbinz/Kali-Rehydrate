@@ -227,9 +227,10 @@ case $choice in
         pip3 install pandas openpyxl requests beautifulsoup4 stem tor shell-gpt xlsxwriter lolcat --break-system-packages
 
         blue_echo "Installing misc requirements..."
+        dpkg --add-architecture i386
         sudo apt install jq scrot terminator wine wine32:i386 vmfs-tools kpartx libnss3-tools xclip
 
-        blue_echo "Installing misc  requirements continued..."
+        blue_echo "Installing misc requirements continued..."
         go install github.com/takshal/freq@latest
         go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
     
