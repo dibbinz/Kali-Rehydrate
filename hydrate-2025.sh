@@ -229,6 +229,10 @@ case $choice in
         blue_echo "Installing misc requirements..."
         sudo apt install jq scrot terminator wine wine32:i386 vmfs-tools kpartx libnss3-tools xclip
 
+        blue_echo "Installing misc  requirements continued..."
+        go install github.com/takshal/freq@latest
+        go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
+    
         #  ---- leafpad -----
         blue_echo "Installing leafpad..."
         sudo apt-get install leafpad 
