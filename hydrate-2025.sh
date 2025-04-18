@@ -439,7 +439,7 @@ case $choice in
         sudo apt-get update && sudo dpkg --configure -a;
 
         blue_echo "Configuring and Starting TailScale..."
-        sudo tailscale up --ssh
+        sudo tailscale up --advertise-tags=tag:pentest --ssh
         sudo systemctl enable --now tailscaled
         sudo systemctl start tailscaled
 
