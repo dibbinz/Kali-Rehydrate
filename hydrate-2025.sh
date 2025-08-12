@@ -378,8 +378,7 @@ case $choice in
 
         # Install wafw00f ----
         blue_echo "Installing wafw00f..."
-        cd /opt/wafw00f;
-        pipx install git+https://github.com/EnableSecurity/wafw00f.git;
+        apt-get install wafw00f
 
         # ---- install pywerview ----
         blue_echo "Installing pywerview..."
