@@ -380,6 +380,10 @@ case $choice in
         blue_echo "Installing wafw00f..."
         apt-get install wafw00f
 
+        # Install ipmitool
+        blue_echo "Installing ipmitool"
+        apt-get install ipmitool
+
         # ---- install pywerview ----
         blue_echo "Installing pywerview..."
         cd /opt/pywerview;
