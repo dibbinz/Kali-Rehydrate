@@ -179,9 +179,6 @@ case $choice in
         blue_echo "Installing Pure-FTPd..."
         sudo apt-get install pure-ftpd -y -qq
 
-        blue_echo "Installing CrackMapExec..."
-        sudo apt-get install crackmapexec -y -qq
-
         blue_echo "Installing Rinetd..."
         sudo apt-get install rinetd -y -qq
 
@@ -246,9 +243,10 @@ case $choice in
         
         blue_echo "Installing Bloodhound-ce..."
         cd /opt/;
-        sudo mkdir bloodhound-ce;
-        cd /opt/bloodhound-ce;
-        curl -L https://ghst.ly/getbhce >> docker-compose.yml;
+        wget https://github.com/SpecterOps/bloodhound-cli/releases/latest/download/bloodhound-cli-linux-amd64.tar.gz
+        tar -xvzf bloodhound-cli-linux-amd64.tar.gz
+        rm bloodhound-cli-linux-amd64.tar.gz
+        ./bloodhound-cli install
         
         blue_echo "Updating package lists..."
         sudo apt-get update -qq
@@ -412,24 +410,15 @@ case $choice in
 
         # ---- install mitm6 ----
         blue_echo "Installing mitm6..."
-        cd /opt/mitm6;
-        pip3 install -r requirements.txt --break-system-packages; 
+        sudo apt-get install mitm6 -y -qq
 
         # ----- install empire -------
+        # ----- docker run -it -p 1337:1337 bcsecurity/empire:latest ------
         blue_echo "Installing empire..."
-        sudo chown kali:kali -R /opt/Empire;
-        # ----Switching to kali user to install empire because empire cannot install or run as root. Enter Password For user kali which is just kali if it asks ----
-        su kali
-        cd /opt/Empire/setup;
-        bash ./checkout-latest-tag.sh;
-        cd ..
-        bash ./ps-empire install -y;
-
-        # ------- install Deathstar ---------
-        blue_echo "Installing Deathstar..."
-        cd /opt/DeathStar;
-        pip3 install -r requirements.txt --break-system-packages;
-        pipx install deathstar-empire;
+        blue_echo "docker run -it -p 1337:1337 bcsecurity/empire:latest"
+        blue_echo "username: empireadmin & password: password123"
+        blue_echo "install deathstar plugin once logged in..."
+        docker pull bcsecurity/empire:latest
 
         #---------------- install tailscale -----------------
         blue_echo "Uninstalling TailScale..."
