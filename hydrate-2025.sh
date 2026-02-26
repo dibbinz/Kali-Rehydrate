@@ -432,7 +432,7 @@ case $choice in
 
         blue_echo "Configuring and Starting TailScale..."
         sudo systemctl enable --now tailscaled
-        sudo tailscale up --ssh --advertise-tags=tag:ssh
+        sudo tailscale up --ssh --advertise-tags=tag:ssh --exit-node=wireguard-vpn-ec2-instance
     
         # ----- install nessus ------
         blue_echo "Installing Tenable Nessus..."
