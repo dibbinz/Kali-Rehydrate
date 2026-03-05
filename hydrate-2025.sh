@@ -432,7 +432,7 @@ case $choice in
 
         blue_echo "Configuring and Starting TailScale..."
         sudo systemctl enable --now tailscaled
-        sudo tailscale up --ssh --advertise-tags=tag:ssh
+        sudo tailscale up --advertise-tags=tag:ssh
     
         # ----- install nessus ------
         blue_echo "Installing Tenable Nessus..."
